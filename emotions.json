@@ -1,0 +1,127 @@
+"Happy": {
+  "Playful": [
+    "(・3・)",
+    "✌(-‿-)✌"
+  ],
+  "Content": [
+    "✌(-‿-)✌"
+  ],
+  "Interested" : [
+    "(・3・)",
+    "(⌐⊙_⊙)"
+  ],
+  "Proud": [
+    "✌(-‿-)✌"
+  ],
+  "Accepted": [],
+  "Powerful": [],
+  "Peaceful": [
+    "✌(-‿-)✌"
+  ],
+  "Trusting": [
+    "✌(-‿-)✌"
+  ],
+  "Optimistic": [
+    "(・3・)",
+    "✌(-‿-)✌"
+  ],
+},
+"Surprised": {
+  "Startled": [],
+  "Confused": [],
+  "Amazed": [],
+  "Excited": [
+    "✌(-‿-)✌"
+  ],
+  "Any": [
+    "(⌐⊙_⊙)",
+    "._."
+  ]
+},
+"Bad": {
+  "Bored": [
+    "(-_-)",
+    "꒰ ꒡⌓꒡꒱"
+  ],
+  "Busy": [
+    "._."
+  ],
+  "Stressed": [
+    "(- ʖ̯-)",
+    "._."
+  ],
+  "Tired": [
+    "(-_-)",
+    "(- ʖ̯-)",
+    "꒰ ꒡⌓꒡꒱"
+  ],
+},
+"Fearful": {
+  "Scared": [],
+  "Anxious": [
+    "(⌐⊙_⊙)",
+    "._."
+  ],
+  "Insecure": [],
+  "Weak": [],
+  "Rejected": [],
+  "Threatened": [],
+  "Any": [
+    "(- ʖ̯-)"
+  ]
+},
+"Angry": {
+  "Let Down": [
+    "(-_-)",
+    "꒰ ꒡⌓꒡꒱"
+  ],
+  "Humiliated": [],
+  "Bitter": [
+    "(- ʖ̯-)"
+  ],
+  "Mad": [],
+  "Aggressive": []
+  "Frustrated": [
+    "(-_-)",
+    "(- ʖ̯-)",
+    "._."
+  ],
+  "Distant": [
+    "(-_-)"
+  ],
+  "Critical": [
+    "꒰ ꒡⌓꒡꒱"
+  ],
+},
+"Disgusted": {
+  "Disapproving": [
+    "(-_-)",
+    "(- ʖ̯-)",
+    "꒰ ꒡⌓꒡꒱"
+  ],
+  "Disappointed": [
+    "(-_-)",
+    "(- ʖ̯-)"
+  ],
+  "Awful": [],
+  "Repelled": [],
+},
+Sad: {
+  "Hurt": [
+    "(-_-)",
+    "(- ʖ̯-)"
+  ],
+  "Depressed": [
+    "(-_-)",
+    "(- ʖ̯-)"
+  ],
+  "Guilty": [
+    "(-_-)",
+    "(- ʖ̯-)"
+  ],
+  "Despair": [],
+  "Vulnerable": [],
+  "Lonely": [
+    "(-_-)"
+  ],
+}
