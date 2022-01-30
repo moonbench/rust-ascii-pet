@@ -1,25 +1,8 @@
+mod emotion;
+use crate::character::emotion::{Emotion, Emotions};
 
-#[derive(Debug)]
-pub struct Emotion {
-    pub name: String,
-}
-
-impl Emotion {
-    pub fn get_expression(&self) -> String {
-        "^‿^".to_string()
-    }
-    pub fn get_animation(&self, face: String) -> Animation {
-        Animation {
-            frames: [
-                Frame(format!("( {} )", face).to_string(), 1000),
-                Frame(format!("(  {})", face).to_string(), 500),
-                Frame(format!("( {} )", face).to_string(), 1000),
-                Frame(format!("({}  )", face).to_string(), 500),
-            ].to_vec(),
-            current: 0,
-        }
-    }
-}
+use rand::thread_rng;
+use rand::Rng;
 
 #[derive(Debug, Clone)]
 pub struct Frame(pub String, pub u64);
@@ -41,25 +24,36 @@ impl Animation {
             self.current = 0;
         }
     }
+    pub fn make_for(emotion: &Emotion, face: &str) -> Animation{
+        Animation {
+            frames: [
+                Frame(format!("( {} )", face).to_string(), 1000),
+                Frame(format!("(  {})", face).to_string(), 500),
+                Frame(format!("( {} )", face).to_string(), 1000),
+                Frame(format!("({}  )", face).to_string(), 500),
+            ].to_vec(),
+            current: 0,
+        }
+    }
 }
 
 #[derive(Debug)]
-pub struct Character {
+pub struct Character<'a> {
     pub name: String,
     pub face: String,
-    pub emotion: Emotion,
+    pub emotion: Emotion<'a>,
     pub animation: Animation
 }
 
-impl Character {
-    pub fn default() -> Character {
+impl Character<'_>  {
+    pub fn default() -> Character<'static> {
         let emotion = Emotion {
-            name: "Null".to_string()
+            name: &Emotions::Null
         };
         Character {
             name: "Powa".to_string(),
-            face: emotion.get_expression(),
-            animation: emotion.get_animation(emotion.get_expression()),
+            face: emotion.pick_expression(),
+            animation: Animation::make_for(&emotion, &emotion.pick_expression()),
             emotion: emotion,
         }
     }
@@ -77,8 +71,9 @@ impl Character {
 
     pub fn pick_emotion(&mut self){
         self.emotion = Emotion{
-            name: "Happy".to_string()
+            name: &Emotions::Happy
         };
-        self.face = self.emotion.get_expression();
+        self.face = self.emotion.pick_expression();
+        self.animation = Animation::make_for(&self.emotion, &self.emotion.pick_expression());
     }
 }
