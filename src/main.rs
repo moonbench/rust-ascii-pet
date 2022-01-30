@@ -64,7 +64,7 @@ impl Character {
 
 
     fn print(&self, text: &String){
-        println!("{:^24}", text);
+        print!("{:^24}", text);
     }
 
     fn pick_emotion(&mut self){
@@ -93,9 +93,10 @@ fn main() {
 
     loop {
         print!("{esc}c", esc = 27 as char);
-        println!("╔{:═^22}╗\n", format!(" {} ", pet.name));
+        print!("╔{:═^22}╗\n\n\n", format!(" {} ", pet.name));
         let delay = pet.next_tick();
-        println!("\n╩╦{:═^20}╦╩", "");
+        print!("\n\n╩╦{:═^20}╦╩\n", "");
+        std::io::stdout().flush().unwrap();
         thread::sleep(Duration::from_millis(delay));
     }
     //
