@@ -6,18 +6,27 @@ use std::thread;
 use std::time::Duration;
 use std::io::Write;
 
-fn main() {
-    print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
+fn render_frame(pet: &mut Character) -> u64 {
+    // Clear the last
+    print!("{esc}c", esc = 27 as char);
 
+    // Print this frame
+    print!("╔{:═^22}╗\n\n\n", format!(" {} ", pet.name));
+    let delay = pet.next_tick();
+    print!("\n\n╩╦{:═^20}╦╩\n", "");
+
+    // Flush the output buffer all at once
+    std::io::stdout().flush().unwrap();
+
+    delay
+}
+
+fn main() {
     let mut pet = Character::default();
     pet.pick_emotion();
 
     loop {
-        print!("{esc}c", esc = 27 as char);
-        print!("╔{:═^22}╗\n\n\n", format!(" {} ", pet.name));
-        let delay = pet.next_tick();
-        print!("\n\n╩╦{:═^20}╦╩\n", "");
-        std::io::stdout().flush().unwrap();
+        let delay = render_frame(&mut pet);
         thread::sleep(Duration::from_millis(delay));
     }
 }
