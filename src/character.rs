@@ -26,14 +26,14 @@ impl Character<'_>  {
     }
 
     pub fn next_tick(&mut self) -> u64 {
-        self.print(&self.animation.frame().0);
+        empty_layer();
+        empty_layer();
+        empty_layer();
+        empty_layer();
+        print!("║{:^30}║\n", &self.animation.frame().0);
         let delay = self.animation.frame().1;
         self.animation.next();
         delay
-    }
-
-    fn print(&self, text: &String){
-        print!("{:^24}", text);
     }
 
     pub fn pick_emotion(&mut self){
@@ -43,4 +43,8 @@ impl Character<'_>  {
         self.face = self.emotion.pick_expression();
         self.animation = Animation::make_for(&self.emotion, &self.emotion.pick_expression());
     }
+}
+
+fn empty_layer() {
+    print!("║{: ^30}║\n", "");
 }

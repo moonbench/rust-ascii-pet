@@ -11,9 +11,10 @@ fn render_frame(pet: &mut Character) -> u64 {
     print!("{esc}c", esc = 27 as char);
 
     // Print this frame
-    print!("╔{:═^22}╗\n\n\n", format!(" {} ", pet.name));
+    print!("╔{:═^30}╗\n", format!(" {} ", pet.name));
     let delay = pet.next_tick();
-    print!("\n\n╩╦{:═^20}╦╩\n", "");
+    print!("╚═╦{:═^26}╦═╝\n", "");
+    print!("  █{: ^26}█ \n", "");
 
     // Flush the output buffer all at once
     std::io::stdout().flush().unwrap();
