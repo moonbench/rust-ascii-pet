@@ -26,8 +26,11 @@ fn main() {
     let mut pet = Character::default();
     pet.pick_emotion();
 
-    loop {
-        let delay = render_frame(&mut pet);
-        thread::sleep(Duration::from_millis(delay));
-    }
+    let render_loop = thread::spawn(move || {
+        loop {
+            let delay = render_frame(&mut pet);
+            thread::sleep(Duration::from_millis(delay));
+        }
+    });
+    render_loop.join().unwrap();
 }
