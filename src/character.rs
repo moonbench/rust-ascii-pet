@@ -1,41 +1,8 @@
 mod emotion;
+mod animation;
+
 use crate::character::emotion::{Emotion, Emotions};
-
-use rand::thread_rng;
-use rand::Rng;
-
-#[derive(Debug, Clone)]
-pub struct Frame(pub String, pub u64);
-
-#[derive(Debug)]
-pub struct Animation {
-    pub frames: Vec<Frame>,
-    pub current: usize,
-}
-
-impl Animation {
-    pub fn frame(&self) -> &Frame {
-        let frame = &self.frames[self.current];
-        frame
-    }
-    pub fn next(&mut self){
-        self.current += 1;
-        if self.current >= self.frames.len() {
-            self.current = 0;
-        }
-    }
-    pub fn make_for(emotion: &Emotion, face: &str) -> Animation{
-        Animation {
-            frames: [
-                Frame(format!("( {} )", face).to_string(), 1000),
-                Frame(format!("(  {})", face).to_string(), 500),
-                Frame(format!("( {} )", face).to_string(), 1000),
-                Frame(format!("({}  )", face).to_string(), 500),
-            ].to_vec(),
-            current: 0,
-        }
-    }
-}
+use crate::character::animation::{Animation};
 
 #[derive(Debug)]
 pub struct Character<'a> {
