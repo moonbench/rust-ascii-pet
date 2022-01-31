@@ -1,6 +1,6 @@
 use rand::seq::SliceRandom;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum Emotions {
     Happy,
     Excited,
@@ -19,11 +19,11 @@ fn happy_face() -> &'static str {
 }
 
 #[derive(Debug)]
-pub struct Emotion<'a> {
-    pub name: &'a Emotions,
+pub struct Emotion {
+    pub name: Emotions,
 }
 
-impl Emotion<'_> {
+impl Emotion {
     pub fn pick_expression(&self) -> String {
         match self.name {
             Emotions::Happy => happy_face(),

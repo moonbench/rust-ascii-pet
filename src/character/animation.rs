@@ -31,9 +31,9 @@ impl Animation {
 fn idle(face: &str) -> Animation {
     Animation {
         frames: [
-            Frame(format!("( {} )", face).to_string(), 1000),
+            Frame(format!("( {} )", face).to_string(), 500),
             Frame(format!("(  {})", face).to_string(), 500),
-            Frame(format!("( {} )", face).to_string(), 1000),
+            Frame(format!("( {} )", face).to_string(), 500),
             Frame(format!("({}  )", face).to_string(), 500),
         ].to_vec(),
         current: 0,

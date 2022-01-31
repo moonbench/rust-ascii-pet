@@ -1,21 +1,21 @@
-mod emotion;
+pub mod emotion;
 mod animation;
 
 use crate::character::emotion::{Emotion, Emotions};
 use crate::character::animation::{Animation};
 
 #[derive(Debug)]
-pub struct Character<'a> {
+pub struct Character {
     pub name: String,
     pub face: String,
-    pub emotion: Emotion<'a>,
+    pub emotion: Emotion,
     pub animation: Animation
 }
 
-impl Character<'_>  {
-    pub fn default() -> Character<'static> {
+impl Character  {
+    pub fn default() -> Character {
         let emotion = Emotion {
-            name: &Emotions::Null
+            name: Emotions::Null
         };
         Character {
             name: "Powa".to_string(),
@@ -37,9 +37,11 @@ impl Character<'_>  {
     }
 
     pub fn pick_emotion(&mut self){
-        self.emotion = Emotion{
-            name: &Emotions::Happy
-        };
+        self.set_emotion(Emotions::Happy);
+    }
+
+    pub fn set_emotion(&mut self, name: Emotions){
+        self.emotion = Emotion{name: name.clone()};
         self.face = self.emotion.pick_expression();
         self.animation = Animation::make_for(&self.emotion, &self.emotion.pick_expression());
     }
