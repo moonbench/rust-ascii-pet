@@ -23,6 +23,8 @@ impl Animation {
     pub fn make_for(emotion: &Emotion, face: &str) -> Animation{
         match emotion.name {
             Emotions::Happy => idle(face),
+            Emotions::Excited => excite(face),
+            Emotions::Playful => play(face),
             _ => nada(face)
         }
     }
@@ -40,12 +42,35 @@ fn idle(face: &str) -> Animation {
     }
 }
 
+fn excite(face: &str) -> Animation {
+    Animation {
+        frames: [
+            Frame(format!("~\\( {} )/~", face).to_string(), 500),
+            Frame(format!(" _( {} )_ ", face).to_string(), 500),
+        ].to_vec(),
+        current: 0,
+    }
+}
+
 
 fn nada(face: &str) -> Animation {
     Animation {
         frames: [
-            Frame(format!("[ {} ]", face).to_string(), 1000),
-            Frame(format!("[[ {} ]]", face).to_string(), 1000),
+            Frame(format!("[ {} ]", face).to_string(), 250),
+            Frame(format!("[  {}  ]", face).to_string(), 250),
+        ].to_vec(),
+        current: 0,
+    }
+}
+
+fn play(_face: &str) -> Animation {
+    Animation {
+        frames: [
+            Frame(format!("     (•_•)      ").to_string(), 250),
+            Frame(format!("     ( •_•)>⌐■-■").to_string(), 150),
+            Frame(format!("     ( •_•)⌐■-■ ").to_string(), 150),
+            Frame(format!("     ( •⌐■-■,   ").to_string(), 150),
+            Frame(format!("     (⌐■_■)     ").to_string(), 1000),
         ].to_vec(),
         current: 0,
     }

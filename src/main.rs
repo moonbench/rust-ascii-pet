@@ -18,7 +18,7 @@ fn render_frame(pet: &mut Character) -> u64 {
     print!("╔{:═^30}╗\n", format!(" {} ", pet.name));
     let delay = pet.next_tick();
     print!("╚═╦{:═^26}╦═╝\n", "");
-    print!("  █{: ^26}█ \n", "");
+    print!("  ╩{:═^26}╩ \n", "");
 
     // Flush the output buffer all at once
     std::io::stdout().flush().unwrap();
@@ -52,6 +52,9 @@ fn main() {
             tx.send(emotion).unwrap();
             thread::sleep(Duration::from_millis(4000));
             let emotion = Emotions::Loving;
+            tx.send(emotion).unwrap();
+            thread::sleep(Duration::from_millis(5000));
+            let emotion = Emotions::Playful;
             tx.send(emotion).unwrap();
             thread::sleep(Duration::from_millis(5000));
             let emotion = Emotions::Happy;

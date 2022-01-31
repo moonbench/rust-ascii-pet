@@ -6,6 +6,7 @@ pub enum Emotions {
     Excited,
     Loving,
     Sad,
+    Playful,
     Null
 }
 
@@ -31,6 +32,7 @@ impl Emotion {
             Emotions::Loving => "♥‿♥",
             Emotions::Sad => "╥﹏╥",
             Emotions::Null => "o.o",
+            Emotions::Playful => ":3:"
         }.to_string()
     }
 }
