@@ -3,7 +3,6 @@ mod character;
 mod emotion;
 
 use crate::character::Character;
-use crate::character::emotion::{Emotion, Emotions};
 
 use std::io::Write;
 use std::sync::mpsc;
@@ -18,7 +17,7 @@ fn render_frame(pet: &mut Character) -> u64 {
     print!("╔{:═^30}╗\n", format!(" {} ", pet.name));
     let delay = pet.next_tick();
     print!("╚═╦{:═^26}╦═╝\n", "");
-    print!("  ╩{:═^26}╩ \n", "");
+    print!("  ╩{: ^26}╩ \n", "");
 
     // Flush the output buffer all at once
     std::io::stdout().flush().unwrap();
@@ -28,16 +27,20 @@ fn render_frame(pet: &mut Character) -> u64 {
 
 fn main() {
     let mut pet = Character::default();
-    pet.pick_emotion();
 
-    let (tx, rx) = mpsc::channel();
+    let (update_tx, update_rx) = mpsc::channel();
+    let (delay_tx, delay_rx) = mpsc::channel();
 
     let render_loop = thread::spawn(move || {
         loop {
-            match rx.try_recv() {
-                Err(something) => {},
+            match update_rx.try_recv() {
+                Err(_) => {},
                 Ok(message) => {
-                    pet.set_emotion(message)
+                    match message {
+                        "state_change" => pet.state_change(),
+                        _ => {}
+                    }
+                    delay_tx.send(pet.animation.duration).unwrap();
                 }
             };
             let delay = render_frame(&mut pet);
@@ -47,24 +50,13 @@ fn main() {
 
     let update_loop = thread::spawn(move || {
         loop {
-            thread::sleep(Duration::from_millis(2500));
-            let emotion = Emotions::Happy;
-            tx.send(emotion).unwrap();
-            thread::sleep(Duration::from_millis(4000));
-            let emotion = Emotions::Loving;
-            tx.send(emotion).unwrap();
-            thread::sleep(Duration::from_millis(5000));
-            let emotion = Emotions::Playful;
-            tx.send(emotion).unwrap();
-            thread::sleep(Duration::from_millis(5000));
-            let emotion = Emotions::Happy;
-            tx.send(emotion).unwrap();
-            thread::sleep(Duration::from_millis(2500));
-            let emotion = Emotions::Excited;
-            tx.send(emotion).unwrap();
-            thread::sleep(Duration::from_millis(2500));
-            let emotion = Emotions::Happy;
-            tx.send(emotion).unwrap();
+            update_tx.send("state_change").unwrap();
+            let delay = match delay_rx.recv() {
+                Err(_) => {2000},
+                Ok(ms) => ms
+            };
+
+            thread::sleep(Duration::from_millis(delay));
         }
     });
 

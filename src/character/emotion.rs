@@ -14,7 +14,8 @@ fn happy_face() -> &'static str {
     let faces = vec![
         "^‿^",
         "^_^",
-        "ˊᵕˋ"
+        "ˊᵕˋ",
+        "•‿•",
     ];
     faces.choose(&mut rand::thread_rng()).unwrap()
 }
@@ -28,9 +29,9 @@ impl Emotion {
     pub fn pick_expression(&self) -> String {
         match self.name {
             Emotions::Happy => happy_face(),
-            Emotions::Excited => "≧▽≦",
+            Emotions::Excited => "^-^",
             Emotions::Loving => "♥‿♥",
-            Emotions::Sad => "╥﹏╥",
+            Emotions::Sad => "╥^╥",
             Emotions::Null => "o.o",
             Emotions::Playful => ":3:"
         }.to_string()
