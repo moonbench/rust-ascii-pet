@@ -46,7 +46,7 @@ impl Character  {
 
     pub fn state_change(&mut self) {
         match rand::thread_rng().gen_range(0,100) {
-            0..= 50 => self.set_emotion(Emotions::Happy),
+            0..= 50 => self.set_emotion(Emotions::Playful),
             51..=60 => self.set_emotion(Emotions::Sad),
             61..=70 => self.set_emotion(Emotions::Excited),
             71..=80 => self.set_emotion(Emotions::Playful),

@@ -42,7 +42,7 @@ impl Animation {
         match emotion.name {
             Emotions::Happy => random_happy(face),
             Emotions::Excited => excite(face),
-            Emotions::Playful => play(face),
+            Emotions::Playful => random_play(face),
             Emotions::Loving => give_love(face),
             _ => nada(face)
         }
@@ -60,6 +60,14 @@ fn random_happy(face: &str) -> Animation {
         61..=80 => pulse(face),
         81..=90 => excite(face),
         _ => nada(face),
+    }
+}
+
+fn random_play(face: &str) -> Animation {
+    match rand_range(0,100) {
+        0..=30 => play(face),
+        31..=60 => punch(face),
+        _ => magic(face)
     }
 }
 
@@ -85,7 +93,17 @@ fn look_around(face: &str) -> Animation {
 fn pulse(face: &str) -> Animation {
     Animation::new(&[
         Frame::new(format!("( {} )", face), 1250),
-        Frame::new(format!("(  {}  )", face), 1250),
+        Frame::new(format!("(( {} ))", face), 1250),
+    ], rand_range(2,6))
+}
+
+fn punch(_face: &str) -> Animation {
+    Animation::new(&[
+        Frame::new(format!(" O('-' Q)  "), 750),
+        Frame::new(format!("O=('-' Q)  "), 250),
+        Frame::new(format!(" O('-' Q)  "), 750),
+        Frame::new(format!(" O('-'O=)  "), 250),
+        Frame::new(format!(" O('-' Q)  "), 250),
     ], rand_range(2,6))
 }
 
@@ -93,28 +111,45 @@ fn excite(face: &str) -> Animation {
     Animation::new(&[
         Frame::new(format!(" _( {} )_ ", face), 500),
         Frame::new(format!("~\\( {} )/~", face), 250),
-        Frame::new(format!("☆ ☆\\( {} )/☆ ☆", face), 500),
+        Frame::new(format!("* \\( {} )/ *", face), 250),
+        Frame::new(format!("☆  \\( {} )/  ☆", face), 250),
+        Frame::new(format!(".   \\( {} )/   .", face), 500),
     ], rand_range(2,4))
 }
 
 fn nada(face: &str) -> Animation {
     Animation::new(&[
         Frame::new(format!("   ( {} )   ", face), 500),
-        Frame::new(format!("   ( {} )?  ", face), 500),
-        Frame::new(format!("   ( {} ) ? ", face), 500),
-        Frame::new(format!("   ( {} )  ?", face), 500),
+        Frame::new(format!("  ?( {} )?  ", face), 500),
+        Frame::new(format!(" ? ( {} ) ? ", face), 500),
+        Frame::new(format!("?  ( {} )  ?", face), 500),
     ], rand_range(2,5))
 }
 
 fn play(_face: &str) -> Animation {
     Animation::new(&[
         Frame::new(format!("     ( •_• )     "), 2000),
-        Frame::new(format!("     (  •_•)     "), 2000),
+        Frame::new(format!("     (  •_•)     "), 1000),
         Frame::new(format!("     (  •_•)>⌐■-■"), 450),
         Frame::new(format!("     (  •_•)⌐■-■ "), 300),
-        Frame::new(format!("     (  •⌐■-■    "), 250),
-        Frame::new(format!("     ( ⌐■_■)     "), 5000),
+        Frame::new(format!("     (  •⌐■)■    "), 300),
+        Frame::new(format!("     ( ⌐■_■)     "), 3000),
+        Frame::new(format!("     ( ⌐■‿■)     "), 1750),
     ], 1)
+}
+
+fn magic(_face: &str) -> Animation {
+    Animation::new(&[
+        Frame::new(format!("      ( *•‿•)      "), 500),
+        Frame::new(format!("      ( *•‿•)⌒     "), 750),
+        Frame::new(format!("      ( *•‿•)⌒☆    "), 200),
+        Frame::new(format!("      ( *•‿•)─ ☆   "), 200),
+        Frame::new(format!("      ( *•‿•)─  ☆  "), 200),
+        Frame::new(format!("      ( *•‿•)─   ✧ "), 200),
+        Frame::new(format!("      ( *•▽•)     §"), 250),
+        Frame::new(format!("      ( *•▽•)     ✧"), 250),
+        Frame::new(format!("      ( *•▽•)      "), 500),
+    ], rand_range(1,2))
 }
 
 fn give_love(face: &str) -> Animation {

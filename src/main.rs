@@ -20,6 +20,7 @@ fn render_frame(pet: &mut Character) -> u64 {
     print!("║{:▒^30}║\n", "");
     print!("║{:▓^30}║\n", "");
     print!("╚{:═^30}╝\n", "");
+    print!("Feeling: {}\n", pet.emotion.name_string());
 
     // Flush the output buffer all at once
     std::io::stdout().flush().unwrap();
