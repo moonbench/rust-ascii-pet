@@ -56,8 +56,8 @@ fn rand_range(min: u64, max: u64) -> u64 {
 fn random_happy(face: &str) -> Animation {
     match rand_range(0,100) {
         0..=30 => look_around(face),
-        31..=40 => sit(face),
-        51..=80 => pulse(face),
+        31..=60 => sit(face),
+        61..=80 => pulse(face),
         81..=90 => excite(face),
         _ => nada(face),
     }

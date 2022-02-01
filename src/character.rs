@@ -20,7 +20,7 @@ impl Character  {
             name: Emotions::Null
         };
         Character {
-            name: "Buddy1".to_string(),
+            name: "Buddy".to_string(),
             face: emotion.pick_expression(),
             animation: Animation::make_for(&emotion, &emotion.pick_expression()),
             emotion: emotion,
@@ -28,10 +28,9 @@ impl Character  {
     }
 
     pub fn next_tick(&mut self) -> u64 {
-        empty_layer();
-        empty_layer();
-        empty_layer();
-        empty_layer();
+        for _ in 0..6 {
+            empty_layer();
+        }
         print!("║{:^30}║\n", "ᑎ___ᑎ");
         print!("║{:^30}║\n", &self.animation.frame().0);
         let delay = self.animation.frame().1;
