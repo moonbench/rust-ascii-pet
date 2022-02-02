@@ -1,5 +1,6 @@
 pub mod emotion;
 mod animation;
+pub mod glyphs;
 
 use crate::character::emotion::{Emotion, Emotions};
 use crate::character::animation::{Animation};
@@ -10,6 +11,7 @@ use rand::Rng;
 pub struct Character {
     pub name: String,
     pub face: String,
+    pub ears: String,
     pub emotion: Emotion,
     pub animation: Animation
 }
@@ -22,6 +24,7 @@ impl Character  {
         Character {
             name: "Buddy".to_string(),
             face: emotion.pick_expression(),
+            ears: "ᑎ___ᑎ".to_string(),
             animation: Animation::make_for(&emotion, &emotion.pick_expression()),
             emotion: emotion,
         }
@@ -31,7 +34,7 @@ impl Character  {
         for _ in 0..6 {
             empty_layer();
         }
-        print!("║{:^30}║\n", "ᑎ___ᑎ");
+        print!("║{:^30}║\n", &self.ears);
         print!("║{:^30}║\n", &self.animation.frame().0);
         let delay = self.animation.frame().1;
         self.animation.next();
@@ -41,12 +44,13 @@ impl Character  {
     pub fn set_emotion(&mut self, name: Emotions){
         self.emotion = Emotion{name: name.clone()};
         self.face = self.emotion.pick_expression();
+        self.ears = self.emotion.pick_ears();
         self.animation = Animation::make_for(&self.emotion, &self.face);
     }
 
     pub fn state_change(&mut self) {
         match rand::thread_rng().gen_range(0,100) {
-            0..= 50 => self.set_emotion(Emotions::Playful),
+            0..= 50 => self.set_emotion(Emotions::Happy),
             51..=60 => self.set_emotion(Emotions::Sad),
             61..=70 => self.set_emotion(Emotions::Excited),
             71..=80 => self.set_emotion(Emotions::Playful),

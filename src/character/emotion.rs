@@ -1,5 +1,7 @@
 use rand::seq::SliceRandom;
 
+use crate::character::glyphs;
+
 #[derive(Debug, Clone)]
 pub enum Emotions {
     Happy,
@@ -10,35 +12,6 @@ pub enum Emotions {
     Null
 }
 
-fn happy_face() -> &'static str {
-    let faces = vec![
-        "^‿^",
-        "^_^",
-        "ˊᵕˋ",
-        "•‿•",
-        "˘⌣˘",
-        "˘◡˘"
-    ];
-    faces.choose(&mut rand::thread_rng()).unwrap()
-}
-
-fn excited_face() -> &'static str {
-    let faces = vec![
-        "^-^",
-        "⌒▽⌒"
-    ];
-    faces.choose(&mut rand::thread_rng()).unwrap()
-}
-
-fn loving_face() -> &'static str {
-    let faces = vec![
-        "♡‿♡",
-        "´ω`",
-        "˘³˘",
-    ];
-    faces.choose(&mut rand::thread_rng()).unwrap()
-}
-
 #[derive(Debug)]
 pub struct Emotion {
     pub name: Emotions,
@@ -47,12 +20,20 @@ pub struct Emotion {
 impl Emotion {
     pub fn pick_expression(&self) -> String {
         match self.name {
-            Emotions::Happy => happy_face(),
-            Emotions::Excited => excited_face(),
-            Emotions::Loving => loving_face(),
-            Emotions::Sad => "╥˷╥",
-            Emotions::Null => "•.•",
-            Emotions::Playful => ":3:"
+            Emotions::Happy => glyphs::random_happy_face(),
+            Emotions::Excited => glyphs::random_excited_face(),
+            Emotions::Loving => glyphs::random_loving_face(),
+            Emotions::Sad => glyphs::random_sad_face(),
+            Emotions::Null => glyphs::null_face(),
+            Emotions::Playful => glyphs::playful_face(),
+        }.to_string()
+    }
+
+    pub fn pick_ears(&self) -> String {
+        match self.name {
+            Emotions::Sad | Emotions::Null => glyphs::small_ears(),
+            Emotions::Playful => glyphs::sport_ears(),
+            _ => glyphs::default_ears()
         }.to_string()
     }
 
@@ -62,7 +43,7 @@ impl Emotion {
             Emotions::Excited => "excited",
             Emotions::Loving => "loving",
             Emotions::Sad => "sad",
-            Emotions::Null => "null",
+            Emotions::Null => "nothing",
             Emotions::Playful => "playful"
         }.to_string()
     }

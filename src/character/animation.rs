@@ -44,6 +44,7 @@ impl Animation {
             Emotions::Excited => excite(face),
             Emotions::Playful => random_play(face),
             Emotions::Loving => give_love(face),
+            Emotions::Sad => cry(face),
             _ => nada(face)
         }
     }
@@ -79,7 +80,7 @@ fn sit(face: &str) -> Animation {
 
 fn look_around(face: &str) -> Animation {
     Animation::new(&[
-        Frame::new(format!("( {} )", face), rand_range(700,2000)),
+        Frame::new(format!("( {} )", face), rand_range(700,2500)),
         Frame::new(format!("(  {})", face), rand_range(250,1000)),
         Frame::new(format!("( {} )", face), rand_range(250,1000)),
         Frame::new(format!("({}  )", face), rand_range(250,1000)),
@@ -93,7 +94,8 @@ fn look_around(face: &str) -> Animation {
 fn pulse(face: &str) -> Animation {
     Animation::new(&[
         Frame::new(format!("( {} )", face), 1250),
-        Frame::new(format!("(( {} ))", face), 1250),
+        Frame::new(format!("☆( {} )☆", face), 500),
+        Frame::new(format!("*( {} )*", face), 500),
     ], rand_range(2,6))
 }
 
@@ -103,8 +105,16 @@ fn punch(_face: &str) -> Animation {
         Frame::new(format!("O=('-' Q)  "), 250),
         Frame::new(format!(" O('-' Q)  "), 750),
         Frame::new(format!(" O('-'O=)  "), 250),
-        Frame::new(format!(" O('-' Q)  "), 250),
-    ], rand_range(2,6))
+        Frame::new(format!(" O('-' Q)  "), 500),
+        Frame::new(format!("O=('-' Q)  "), 200),
+        Frame::new(format!(" O('-' Q)  "), 100),
+        Frame::new(format!("O=('-' Q)  "), 200),
+        Frame::new(format!(" O('-' Q)  "), 200),
+        Frame::new(format!(" O('-'O=)  "), 200),
+        Frame::new(format!(" O('-' Q)  "), 100),
+        Frame::new(format!(" O('-'O=)  "), 200),
+        Frame::new(format!(" O('-' Q)  "), rand_range(200,2000)),
+    ], rand_range(2,4))
 }
 
 fn excite(face: &str) -> Animation {
@@ -128,8 +138,8 @@ fn nada(face: &str) -> Animation {
 
 fn play(_face: &str) -> Animation {
     Animation::new(&[
-        Frame::new(format!("     ( •_• )     "), 2000),
-        Frame::new(format!("     (  •_•)     "), 1000),
+        Frame::new(format!("     ( •_• )     "), 1000),
+        Frame::new(format!("     (  •_•)     "), rand_range(500,1000)),
         Frame::new(format!("     (  •_•)>⌐■-■"), 450),
         Frame::new(format!("     (  •_•)⌐■-■ "), 300),
         Frame::new(format!("     (  •⌐■)■    "), 300),
@@ -140,16 +150,16 @@ fn play(_face: &str) -> Animation {
 
 fn magic(_face: &str) -> Animation {
     Animation::new(&[
-        Frame::new(format!("      ( *•‿•)      "), 500),
-        Frame::new(format!("      ( *•‿•)⌒     "), 750),
-        Frame::new(format!("      ( *•‿•)⌒☆    "), 200),
-        Frame::new(format!("      ( *•‿•)─ ☆   "), 200),
-        Frame::new(format!("      ( *•‿•)─  ☆  "), 200),
-        Frame::new(format!("      ( *•‿•)─   ✧ "), 200),
-        Frame::new(format!("      ( *•▽•)     §"), 250),
-        Frame::new(format!("      ( *•▽•)     ✧"), 250),
-        Frame::new(format!("      ( *•▽•)      "), 500),
-    ], rand_range(1,2))
+        Frame::new(format!("      (  •‿•)      "), 500),
+        Frame::new(format!("      (  •‿•)⌒     "), rand_range(500,1200)),
+        Frame::new(format!("      (  •‿•)─☆    "), 200),
+        Frame::new(format!("      (  •‿•)─ ☆   "), 200),
+        Frame::new(format!("      (  •‿•)─  ☆  "), 200),
+        Frame::new(format!("      (  •‿•)─   ✧ "), 200),
+        Frame::new(format!("      (  •▽•)     §"), 330),
+        Frame::new(format!("      (  •▽•)     ✧"), 330),
+        Frame::new(format!("      (  •▽•)      "), 1000),
+    ], rand_range(1,3))
 }
 
 fn give_love(face: &str) -> Animation {
@@ -159,4 +169,20 @@ fn give_love(face: &str) -> Animation {
         Frame::new(format!(" (  {})♥", face), 500),
         Frame::new(format!(" ( {} )♥", face), 1000),
     ], rand_range(2,3))
+}
+
+fn sweat(face: &str) -> Animation {
+    Animation::new(&[
+        Frame::new(format!("( {} )", face), 750),
+        Frame::new(format!(":( {} ):", face), 250),
+        Frame::new(format!(". ( {} ) .", face), 250),
+    ], rand_range(3,6))
+}
+
+fn cry(face: &str) -> Animation {
+    Animation::new(&[
+        Frame::new(format!("( {} )", face), 750),
+        Frame::new(format!(".( {} ).", face), 250),
+        Frame::new(format!(". ( {} ) .", face), 250),
+    ], rand_range(3,6))
 }
