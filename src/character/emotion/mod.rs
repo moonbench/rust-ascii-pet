@@ -48,8 +48,10 @@ impl Emotion {
             Emotions::Angry => glyphs::angry_face(),
             Emotions::Anxious => glyphs::anxious_face(),
             Emotions::Bored => glyphs::bored_face(),
+            Emotions::Busy => glyphs::busy_face(),
             Emotions::Cheeky => glyphs::random_cheeky_face(),
             Emotions::Content => glyphs::random_content_face(),
+            Emotions::Creative => glyphs::random_creative_face(),
             Emotions::Curious => glyphs::random_curious_face(),
             Emotions::Happy => glyphs::random_happy_face(),
             Emotions::Excited => glyphs::random_excited_face(),
@@ -71,12 +73,7 @@ impl Emotion {
         }.to_string()
     }
 
-    pub fn name_string(&self) -> String {
-        self.name.to_string()
-    }
-
     pub fn next_emotion(&self) -> Emotions {
-
         if rand_range(0, 30) >= 28 {
             return Emotions::Frightened;
         }

@@ -12,13 +12,15 @@ fn render_frame(pet: &mut Character) -> u64 {
     print!("{esc}c", esc = 27 as char);
 
     // Print this frame
-    print!("╔{:═^30}╗\n", format!(" {} ", pet.name));
+    print!("╔{:═^40}╗\n", format!(" {} ", pet.name));
     let delay = pet.next_tick();
-    print!("║{:░^30}║\n", "");
-    print!("║{:▒^30}║\n", "");
-    print!("║{:▓^30}║\n", "");
-    print!("╚{:═^30}╝\n", "");
-    print!("Feeling: {}\n", pet.emotion.name_string());
+    print!("║{:░^40}║\n", "");
+    print!("║{:▒^40}║\n", "");
+    print!("║{:▓^40}║\n", "");
+    print!("╚{:═^40}╝\n", "");
+    print!("It seems {:<33}\n", format!("{}...", pet.emotion.name.to_string().to_lowercase()));
+    print!("{:#?}\n", pet.vitals);
+
 
     // Flush the output buffer all at once
     std::io::stdout().flush().unwrap();

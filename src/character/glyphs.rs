@@ -63,6 +63,13 @@ pub fn frightened_faces() -> Vec<&'static str> {
     ]
 }
 
+pub fn creative_faces() -> Vec<&'static str> {
+    vec![
+        "⇀‸↼",
+        "˘⌣˘"
+    ]
+}
+
 pub fn angry_face() -> &'static str {
     "`д´"
 }
@@ -71,6 +78,9 @@ pub fn anxious_face() -> &'static str {
 }
 pub fn bored_face() -> &'static str {
     "-_-"
+}
+pub fn busy_face() -> &'static str {
+    "._."
 }
 pub fn frustrated_face() -> &'static str {
     "=_="
@@ -100,6 +110,9 @@ pub fn random_cheeky_face() -> &'static str {
 }
 pub fn random_content_face() -> &'static str {
     content_faces().choose(&mut rand::thread_rng()).unwrap()
+}
+pub fn random_creative_face() -> &'static str {
+    creative_faces().choose(&mut rand::thread_rng()).unwrap()
 }
 pub fn random_curious_face() -> &'static str {
     curious_faces().choose(&mut rand::thread_rng()).unwrap()
