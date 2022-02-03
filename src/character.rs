@@ -1,11 +1,9 @@
 pub mod emotion;
-mod animation;
+pub mod animation;
 pub mod glyphs;
 
 use crate::character::emotion::{Emotion, Emotions};
 use crate::character::animation::{Animation};
-
-use rand::Rng;
 
 #[derive(Debug)]
 pub struct Character {
@@ -19,7 +17,7 @@ pub struct Character {
 impl Character  {
     pub fn default() -> Character {
         let emotion = Emotion {
-            name: Emotions::Null
+            name: Emotions::Content
         };
         Character {
             name: "Buddy".to_string(),
@@ -49,15 +47,7 @@ impl Character  {
     }
 
     pub fn state_change(&mut self) {
-        match rand::thread_rng().gen_range(0,100) {
-            0..= 50 => self.set_emotion(Emotions::Happy),
-            51..=60 => self.set_emotion(Emotions::Sad),
-            61..=70 => self.set_emotion(Emotions::Excited),
-            71..=80 => self.set_emotion(Emotions::Playful),
-            81..=95 => self.set_emotion(Emotions::Loving),
-            _ => self.set_emotion(Emotions::Null),
-        }
-
+        self.set_emotion(self.emotion.next_emotion());
     }
 }
 

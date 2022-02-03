@@ -1,6 +1,4 @@
 mod character;
-#[path="./character/emotion.rs"]
-mod emotion;
 
 use crate::character::Character;
 
