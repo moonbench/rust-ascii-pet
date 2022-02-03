@@ -77,9 +77,7 @@ impl Emotion {
 
     pub fn next_emotion(&self) -> Emotions {
 
-        // return Emotions::Cheeky;
-
-        if rand_range(0, 10) >= 9 {
+        if rand_range(0, 30) >= 28 {
             return Emotions::Frightened;
         }
         match self.name {

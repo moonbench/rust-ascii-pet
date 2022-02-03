@@ -110,14 +110,17 @@ pub fn next_from_excited() -> Emotions {
 pub fn next_from_frightened() -> Emotions {
     match rand_range(0, 100) {
         0..=30 => Emotions::Content,
+        31..=70 => Emotions::Confused,
         _ => Emotions::Anxious
     }
 }
 
 pub fn next_from_frustrated() -> Emotions {
     match rand_range(0, 100) {
-        0..=20 => Emotions::Frustrated,
-        21..=30 => Emotions::Curious,
+        0..=30 => Emotions::Frustrated,
+        31..=50 => Emotions::Curious,
+        51..=70 => Emotions::Confused,
+        71..=80 => Emotions::Distant,
         _ => Emotions::Content
     }
 }

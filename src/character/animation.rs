@@ -46,7 +46,7 @@ impl Animation {
             Emotions::Busy => sweat(face),
             Emotions::Cheeky => random_cheeky(face),
             Emotions::Confused => random_confused(face),
-            Emotions::Content => sit(face),
+            Emotions::Content => random_content(face),
             Emotions::Creative => random_creative(face),
             Emotions::Curious => ponder(face),
             Emotions::Distant => sit(face),
@@ -71,7 +71,8 @@ fn rand_range(min: u64, max: u64) -> u64 {
 
 fn random_happy(face: &str) -> Animation {
     match rand_range(0,100) {
-        0..=20 => look_around(face),
+        0..=14 => look_around(face),
+        15..=20 => wave(face),
         21..=30 => hum(face),
         31..=40 => sit(face),
         41..=60 => sparkle(face),
@@ -110,6 +111,7 @@ fn random_cheeky(face: &str) -> Animation {
     match rand_range(0,100) {
         0..=10 => sit(face),
         11..=30 => look_around(face),
+        31..=40 => silly(face),
         _ => flex(face)
     }
 }
@@ -118,6 +120,7 @@ fn random_content(face: &str) -> Animation {
     match rand_range(0,100) {
         0..=30 => sit(face),
         31..=70 => look_around(face),
+        71..=85 => wave(face),
         _ => hum(face)
     }
 }
@@ -260,12 +263,11 @@ fn ponder(face: &str) -> Animation {
 
 fn sing(face: &str) -> Animation {
     Animation::new(&[
-        Frame::new(format!("  (  {})♪♬", face), 500),
-        Frame::new(format!("  (  {}) ♪", face), 500),
-        Frame::new(format!(" ♪(  {})  ", face), 500),
+        Frame::new(format!("  (  {}) ♬", face), 500),
+        Frame::new(format!("  (  {})♪ ", face), 500),
+        Frame::new(format!(" ♪(  {}) ♪", face), 500),
         Frame::new(format!("♪ (  {})  ", face), 500),
         Frame::new(format!("  (  {})♬ ", face), 500),
-        Frame::new(format!("  (  {})  ", face), rand_range(500,3000)),
     ], rand_range(3,7))
 }
 
@@ -299,6 +301,20 @@ fn hum(face: &str) -> Animation {
         Frame::new(format!("  ( {} ) ♪", face), 500),
         Frame::new(format!(" ♪( {} )  ", face), 500),
         Frame::new(format!("♪ ( {} )  ", face), 500),
-        Frame::new(format!("♪ ( {} )  ", face),  rand_range(500,2000)),
+        Frame::new(format!("  ( {} )  ", face),  rand_range(500,2000)),
+    ], rand_range(4,10))
+}
+
+fn wave(face: &str) -> Animation {
+    Animation::new(&[
+        Frame::new(format!(" ( {} )ﾉ", face), 500),
+        Frame::new(format!(" ( {} )/", face), 500),
+    ], rand_range(4,10))
+}
+
+fn silly(face: &str) -> Animation {
+    Animation::new(&[
+        Frame::new(format!("┌( {} )╯", face), 500),
+        Frame::new(format!("└( {} )┐", face), 500),
     ], rand_range(4,10))
 }
