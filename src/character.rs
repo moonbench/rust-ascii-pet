@@ -58,12 +58,14 @@ impl Character  {
 
     fn update_vitals(&mut self) {
         match self.emotion.name {
-            Emotions::Angry => self.vitals.less_politeness(),
+            Emotions::Angry => {
+                self.vitals.less_politeness();
+                self.vitals.less_energy();
+            },
             Emotions::Anxious => self.vitals.less_confident(),
             Emotions::Bored => {
                 self.vitals.less_strength();
                 self.vitals.less_engagement();
-                self.vitals.less_energy();
                 self.vitals.more_relaxation()
              },
             Emotions::Busy => self.vitals.less_happiness(),
@@ -78,7 +80,6 @@ impl Character  {
             }
             Emotions::Creative => {
                 self.vitals.more_confident();
-                self.vitals.less_energy();
             },
             Emotions::Curious => {
                 self.vitals.more_engagement();

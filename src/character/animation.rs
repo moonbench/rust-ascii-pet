@@ -413,19 +413,19 @@ fn table_flip(face: &str) -> Animation {
 
 fn make(face: &str) -> Animation {
     Animation::new(&[
-        Frame::new(format!("┌─┐ ({}  )    ", face), rand_range(1000,3000)),
-        Frame::new(format!("┌─┐⊂({}  )    ", face), rand_range(300,600)),
-        Frame::new(format!("┌÷┐⊂({}  )    ", face), 400),
-        Frame::new(format!("┌=┐⊂({}  )    ", face), 350),
-        Frame::new(format!("┌÷┐⊂({}  )    ", face), 350),
-        Frame::new(format!("┌=┐⊂({}\" )    ", face), 350),
-        Frame::new(format!("┌÷┐⊂({}: )    ", face), 350),
-        Frame::new(format!("┌=┐⊂({}, )    ", face), 350),
-        Frame::new(format!("┌÷┐⊂({}  )    ", face), 350),
-        Frame::new(format!("┌=┐⊂({}  )    ", face), 350),
-        Frame::new(format!("☆┌▀┐ ({}  )     ", face), 250),
-        Frame::new(format!("* ┌▀┐ ({}  )      ", face), 250),
-        Frame::new(format!("┌▀┐ ({}  )    ", face), rand_range(2000,4000)),
+        Frame::new(format!("┬─┬ ({}  )    ", face), rand_range(1000,3000)),
+        Frame::new(format!("┬─┬⊂({}  )    ", face), rand_range(300,600)),
+        Frame::new(format!("┬÷┬⊂({}  )    ", face), 400),
+        Frame::new(format!("┬=┬⊂({}  )    ", face), 350),
+        Frame::new(format!("┬÷┬⊂({}  )    ", face), 350),
+        Frame::new(format!("┬=┬⊂({}\" )    ", face), 350),
+        Frame::new(format!("┬÷┬⊂({}: )    ", face), 350),
+        Frame::new(format!("┬=┬⊂({}, )    ", face), 350),
+        Frame::new(format!("┬÷┬⊂({}  )    ", face), 350),
+        Frame::new(format!("┬=┬⊂({}  )    ", face), 350),
+        Frame::new(format!("☆┬▀┬ ({}  )     ", face), 250),
+        Frame::new(format!("* ┬▀┬ ({}  )      ", face), 250),
+        Frame::new(format!("┬▀┬ ({}  )    ", face), rand_range(2000,4000)),
     ], rand_range(3,7))
 }
 
