@@ -7,6 +7,12 @@ use crate::character::emotion::{Emotion, Emotions};
 use crate::character::animation::{Animation};
 use crate::character::vitals::Vitals;
 
+use crate::draw;
+use crossterm::{
+    execute,
+    style::{Color, SetForegroundColor},
+};
+
 #[derive(Debug)]
 pub struct Character {
     pub name: String,
@@ -34,11 +40,12 @@ impl Character  {
     }
 
     pub fn next_tick(&mut self) -> u64 {
-        for _ in 0..5 {
-            empty_layer();
-        }
-        print!("║{:^40}║\n", &self.ears);
-        print!("║{:^40}║\n", &self.animation.frame().0);
+        execute!(
+            std::io::stdout(),
+            SetForegroundColor(Color::White),
+        ).unwrap();
+        self::draw(&format!("{:^40}", &self.ears), (1, 5));
+        self::draw(&format!("{:^40}", &self.animation.frame().0), (1, 6));
         let delay = self.animation.frame().1;
         self.animation.next();
         delay
@@ -123,8 +130,4 @@ impl Character  {
             }
         }
     }
-}
-
-fn empty_layer() {
-    print!("║{: ^40}║\n", "");
 }

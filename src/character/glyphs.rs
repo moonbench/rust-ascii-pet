@@ -43,6 +43,8 @@ pub fn curious_faces() -> Vec<&'static str> {
     vec![
         "⇀‸↼",
         "ò_ô",
+        "~_~",
+        "ಠ_ಠ",
     ]
 }
 pub fn content_faces() -> Vec<&'static str> {
