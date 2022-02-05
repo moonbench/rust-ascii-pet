@@ -71,6 +71,14 @@ pub fn creative_faces() -> Vec<&'static str> {
         "˘⌣˘"
     ]
 }
+pub fn feeding_faces() -> Vec<&'static str> {
+    vec![
+        "⇀‸↼",
+        "˘⌣˘",
+        "•⌣•",
+        "´ω`",
+    ]
+}
 
 pub fn angry_face() -> &'static str {
     "`д´"
@@ -133,4 +141,7 @@ pub fn random_loving_face() -> &'static str {
 }
 pub fn random_sad_face() -> &'static str {
     sad_faces().choose(&mut rand::thread_rng()).unwrap()
+}
+pub fn random_feeding_face() -> &'static str {
+    feeding_faces().choose(&mut rand::thread_rng()).unwrap()
 }

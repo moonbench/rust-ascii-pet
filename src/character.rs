@@ -56,11 +56,15 @@ impl Character  {
         self.face = self.emotion.pick_expression();
         self.ears = self.emotion.pick_ears();
         self.animation = Animation::make_for(&self.emotion, &self.face);
+        self.update_vitals();
     }
 
     pub fn state_change(&mut self) {
         self.set_emotion(self.emotion.next_emotion());
-        self.update_vitals();
+    }
+
+    pub fn set_state(&mut self, new_emotion: Emotions) {
+        self.set_emotion(new_emotion);
     }
 
     fn update_vitals(&mut self) {
@@ -100,6 +104,11 @@ impl Character  {
             Emotions::Excited => {
                 self.vitals.more_happiness();
                 self.vitals.less_energy();
+            },
+            Emotions::Feeding => {
+                self.vitals.more_energy();
+                self.vitals.more_energy();
+                self.vitals.more_happiness();
             }
             Emotions::Frightened => self.vitals.less_brave(),
             Emotions::Frustrated => {

@@ -66,13 +66,13 @@ impl Vitals  {
     }
 
     pub fn more_happiness(&mut self) {
-        if self.engagement > 110 { self.engagement -= 10 }
-        self.engagement += 1;
+        if self.happiness > 110 { self.happiness -= 10 }
+        self.happiness += 1;
     }
 
     pub fn less_happiness(&mut self) {
-        if self.engagement < -110 { self.engagement += 10 }
-        self.engagement -= 1;
+        if self.happiness < -110 { self.happiness += 10 }
+        self.happiness -= 1;
     }
 
     pub fn more_love(&mut self) {
@@ -111,7 +111,7 @@ impl Vitals  {
     }
 
     pub fn less_strength(&mut self) {
-        if self.engagement < -110 { self.strength += 10 }
+        if self.strength < -110 { self.strength += 10 }
         self.strength -= 1;
     }
 }

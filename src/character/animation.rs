@@ -51,6 +51,7 @@ impl Animation {
             Emotions::Curious => random_curious(face),
             Emotions::Distant => sit(face),
             Emotions::Empty => loaf(face),
+            Emotions::Feeding => eat(face),
             Emotions::Excited => excite(face),
             Emotions::Frightened => sweat(face),
             Emotions::Frustrated => endure(face),
@@ -492,4 +493,26 @@ fn booty(_face: &str) -> Animation {
         Frame::new(format!("( ‿|‿ )"), rand_range(300, 500)),
         Frame::new(format!("(  ‿)‿)"), rand_range(300, 800)),
     ], rand_range(2,4))
+}
+
+fn eat(face: &str) -> Animation {
+    Animation::new(&[
+        Frame::new(format!("  ( {} ) ▀", face), 250),
+        Frame::new(format!("  ( {} ) ▄", face), 250),
+        Frame::new(format!(" !(  {}) ▄", face), 250),
+        Frame::new(format!("! (  {}) ▄", face), 250),
+        Frame::new(format!("  (  {}) ▄", face), rand_range(2000,5000)),
+        Frame::new(format!("  (  {})~▄", face), 250),
+        Frame::new(format!(" (  ˘□˘)▄"), 250),
+        Frame::new(format!("(   ˘▄)"), 250),
+        Frame::new(format!("(  ˘ω˘)"), 500),
+        Frame::new(format!("(  ˘3˘)"), 500),
+        Frame::new(format!("(  ˘ω˘)"), 500),
+        Frame::new(format!("(  ˘3˘)"), 500),
+        Frame::new(format!("¤(  ˘ω˘)¤"), 500),
+        Frame::new(format!("⊹(  ˘3˘)⊹"), 500),
+        Frame::new(format!("(  ˘ω˘)"), 500),
+        Frame::new(format!("(  ˘3˘)"), 500),
+        Frame::new(format!("(  ˘ڡ˘)"), rand_range(1000,8000)),
+    ], 1)
 }
