@@ -172,6 +172,7 @@ fn main() {
                 match event::read().unwrap() {
                     event::Event::Key(key_press) => match key_press.code {
                         event::KeyCode::Char('q') => break,
+                        event::KeyCode::Esc => break,
                         event::KeyCode::Char('f') => input_tx.send("feed").unwrap(),
                         _ => {}
                     },
