@@ -44,8 +44,8 @@ impl Character  {
             std::io::stdout(),
             SetForegroundColor(Color::White),
         ).unwrap();
-        self::draw(&format!("{:^40}", &self.ears), (1, 5));
-        self::draw(&format!("{:^40}", &self.animation.frame().0), (1, 6));
+        self::draw(&format!("{:^40}", &self.ears), (1, 6));
+        self::draw(&format!("{:^40}", &self.animation.frame().0), (1, 7));
         let delay = self.animation.frame().1;
         self.animation.next();
         delay
@@ -103,7 +103,6 @@ impl Character  {
             },
             Emotions::Excited => {
                 self.vitals.more_happiness();
-                self.vitals.less_energy();
             },
             Emotions::Eating => {
                 self.vitals.more_energy();
