@@ -5,6 +5,7 @@ pub struct Vitals {
     pub energy: i8,
     pub engagement: i8,
     pub happiness: i8,
+    pub hunger: i8,
     pub love: i8,
     pub politeness: i8,
     pub relaxation: i8,
@@ -19,6 +20,7 @@ impl Vitals  {
             energy: 0,
             engagement: 0,
             happiness: 0,
+            hunger: 0,
             love: 0,
             politeness: 0,
             relaxation: 0,
@@ -73,6 +75,16 @@ impl Vitals  {
     pub fn less_happiness(&mut self) {
         if self.happiness < -110 { self.happiness += 10 }
         self.happiness -= 1;
+    }
+
+    pub fn more_hunger(&mut self) {
+        if self.hunger > 110 { self.hunger -= 10 }
+        self.hunger += 1;
+    }
+
+    pub fn less_hunger(&mut self) {
+        if self.hunger < -110 { self.hunger += 10 }
+        self.hunger -= 1;
     }
 
     pub fn more_love(&mut self) {

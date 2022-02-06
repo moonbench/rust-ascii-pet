@@ -51,7 +51,7 @@ impl Animation {
             Emotions::Curious => random_curious(face),
             Emotions::Distant => sit(face),
             Emotions::Empty => loaf(face),
-            Emotions::Feeding => eat(face),
+            Emotions::Eating => eat(face),
             Emotions::Excited => excite(face),
             Emotions::Frightened => sweat(face),
             Emotions::Frustrated => endure(face),
@@ -132,7 +132,8 @@ fn random_creative(face: &str) -> Animation {
 fn random_cheeky(face: &str) -> Animation {
     match rand_range(0,100) {
         0..=10 => sit(face),
-        11..=30 => look_around(face),
+        11..=20 => look_around(face),
+        21..=30 => victory(face),
         31..=40 => silly(face),
         41..=50 => shimmer(face),
         51..=60 => table_flip(face),
@@ -515,4 +516,15 @@ fn eat(face: &str) -> Animation {
         Frame::new(format!("(  ˘3˘)"), 500),
         Frame::new(format!("(  ˘ڡ˘)"), rand_range(1000,8000)),
     ], 1)
+}
+
+fn victory(_face: &str) -> Animation {
+    Animation::new(&[
+        Frame::new(format!("(  ⇀‸↼)و"), rand_range(1000,2000)),
+        Frame::new(format!("(  ⇀‸↼)ง"), 250),
+        Frame::new(format!("✧(  ⇀‿↼)ง✧"), 250),
+        Frame::new(format!("✧ (  ⇀‿↼)ง ✧"), 250),
+        Frame::new(format!("⊹  (  ⇀‿↼)ง  ⊹"), 250),
+        Frame::new(format!("(  ⇀‿↼)ง"), rand_range(1000,2000)),
+    ], rand_range(2,4))
 }

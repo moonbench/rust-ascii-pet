@@ -107,7 +107,7 @@ pub fn next_from_excited() -> Emotions {
     Emotions::Happy
 }
 
-pub fn next_from_feeding() -> Emotions {
+pub fn next_from_eating() -> Emotions {
     match rand_range(0, 100) {
         0..=30 => Emotions::Content,
         31..=50 => Emotions::Loving,

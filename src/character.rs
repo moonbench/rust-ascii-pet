@@ -105,9 +105,9 @@ impl Character  {
                 self.vitals.more_happiness();
                 self.vitals.less_energy();
             },
-            Emotions::Feeding => {
+            Emotions::Eating => {
                 self.vitals.more_energy();
-                self.vitals.more_energy();
+                self.vitals.less_hunger();
                 self.vitals.more_happiness();
             }
             Emotions::Frightened => self.vitals.less_brave(),
@@ -126,6 +126,7 @@ impl Character  {
             Emotions::Playful => {
                 self.vitals.more_strength();
                 self.vitals.less_energy();
+                self.vitals.more_hunger();
                 self.vitals.more_brave();
             },
             Emotions::Sad => {
@@ -136,6 +137,7 @@ impl Character  {
             Emotions::Tired => {
                 self.vitals.less_strength();
                 self.vitals.more_energy();
+                self.vitals.more_hunger();
             }
         }
     }

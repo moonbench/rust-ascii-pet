@@ -36,7 +36,7 @@ fn render_frame(pet: &mut Character) -> u64 {
     set_environment_colors();
 
     // Print this frame
-    for row in 5..=6 {
+    for row in 1..=6 {
         draw(&format!("║{: ^40}║", ""), (0, row));
     }
     let delay = pet.next_tick();
@@ -45,13 +45,26 @@ fn render_frame(pet: &mut Character) -> u64 {
         cursor::MoveTo(0, 11),
         SetForegroundColor(Color::Blue),
         Print(format!("{:^42}", format!("It seems to be {}...", pet.emotion.name.to_string().to_lowercase()))),
-        ResetColor,
         // cursor::MoveTo(0, 14),
         // Print(format!("{:?}", pet.vitals).to_string())
     ).unwrap();
 
+    render_statusbar(pet);
+
     // print!("{:#?}\n", pet.vitals);
     delay
+}
+
+fn render_statusbar(pet: &Character) {
+    let energy = format!("🗲 {}", pet.vitals.energy);
+    let joy =    format!("♥ {}", pet.vitals.happiness);
+    execute!(
+        std::io::stdout(),
+        cursor::MoveTo(2,1),
+        Print(format!("{:<39}", energy)),
+        cursor::MoveTo(2,2),
+        Print(format!("{:<39}", joy)),
+    ).unwrap();
 }
 
 fn render_environment(name: &str) {
@@ -59,9 +72,6 @@ fn render_environment(name: &str) {
 
     // Draw the enclosure
     draw(&format!("╔{:═^40}╗", format!(" {} ", name)), (0,0));
-    for row in 1..=6 {
-        draw(&format!("║{: ^40}║", ""), (0, row));
-    }
     draw(&format!("║{:░^40}║", ""), (0,7));
     draw(&format!("║{:▒^40}║", ""), (0,8));
     draw(&format!("║{:▓^40}║", ""), (0,9));
@@ -97,6 +107,7 @@ fn restore_terminal(original_size: (u16, u16)) {
         std::io::stdout(),
         cursor::Show,
         ResetColor,
+        terminal::Clear(terminal::ClearType::All),
         terminal::LeaveAlternateScreen
     ).unwrap();
     execute!(
@@ -134,7 +145,7 @@ fn main() {
                 Err(_) => {},
                 Ok(message) => {
                     match message {
-                        "feed" => pet.set_state(Emotions::Feeding),
+                        "feed" => pet.set_state(Emotions::Eating),
                         _ => {}
                     }
                     delay_tx.send(pet.animation.duration).unwrap();
