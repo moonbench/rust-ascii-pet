@@ -23,6 +23,7 @@ pub struct Character {
     pub animation: Animation,
     pub vitals: Vitals,
     pub wealth: u32,
+    pub position: (u8, u8),
 }
 
 impl Character  {
@@ -39,6 +40,7 @@ impl Character  {
             emotion: emotion,
             vitals: vitals,
             wealth: 100,
+            position: (8, 0),
         }
     }
 
@@ -47,8 +49,9 @@ impl Character  {
             std::io::stdout(),
             SetForegroundColor(Color::White),
         ).unwrap();
-        self::draw(&format!("{:^40}", &self.ears), (1, 7));
-        self::draw(&format!("{:^40}", &self.animation.frame().0), (1, 8));
+        let x_pos = self.position.0 as u16 + 1;
+        self::draw(&format!("{:^24}", &self.ears), (x_pos, 7));
+        self::draw(&format!("{:^24}", &self.animation.frame().0), (x_pos, 8));
         let _ = stdout().flush();
         let delay = self.animation.frame().1;
         self.animation.next();
@@ -105,6 +108,7 @@ impl Character  {
                 self.vitals.less_strength();
                 self.vitals.less_engagement();
                 self.vitals.more_relaxation();
+                if self.vitals.happiness > 60 { self.vitals.less_happiness(); }
              },
             Emotions::Busy => {
                 self.vitals.less_happiness();
@@ -127,7 +131,10 @@ impl Character  {
                 self.vitals.more_engagement();
                 self.vitals.less_relaxation();
             }
-            Emotions::Distant => self.vitals.less_engagement(),
+            Emotions::Distant => {
+                self.vitals.less_engagement();
+                if self.vitals.happiness > 60 { self.vitals.less_happiness(); }
+            },
             Emotions::Eating => {
                 self.vitals.more_energy();
                 self.vitals.less_hunger();

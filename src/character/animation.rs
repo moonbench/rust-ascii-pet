@@ -39,7 +39,6 @@ impl Animation {
         }
     }
     pub fn make_for(emotion: &Emotion, face: &str) -> Animation{
-        return table_flip(face);
         match emotion.name {
             Emotions::Angry => sit(face),
             Emotions::Anxious => sweat(face),
