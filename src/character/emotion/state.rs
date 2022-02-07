@@ -1,4 +1,5 @@
 use crate::character::emotion::Emotions;
+use crate::character::vitals::Vitals;
 use rand::Rng;
 
 fn rand_range(min: u64, max: u64) -> u64 {
@@ -55,7 +56,7 @@ pub fn next_from_confused() -> Emotions {
     }
 }
 
-pub fn next_from_content() -> Emotions {
+pub fn next_from_content(vitals: &Vitals) -> Emotions {
     match rand_range(0, 100) {
         0..=25 => Emotions::Happy,
         26..=40 => Emotions::Curious,

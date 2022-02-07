@@ -67,7 +67,7 @@ impl Character  {
     }
 
     pub fn state_change(&mut self) {
-        self.set_emotion(self.emotion.next_emotion());
+        self.set_emotion(self.emotion.next_emotion(&self.vitals));
     }
 
     pub fn set_state(&mut self, new_emotion: Emotions) {

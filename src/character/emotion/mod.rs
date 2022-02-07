@@ -5,6 +5,7 @@ use rand::Rng;
 use std::fmt;
 
 use crate::character::glyphs;
+use crate::character::vitals::Vitals;
 
 #[derive(Debug, Clone)]
 #[derive(PartialEq)]
@@ -76,7 +77,7 @@ impl Emotion {
         }.to_string()
     }
 
-    pub fn next_emotion(&self) -> Emotions {
+    pub fn next_emotion(&self, vitals: &Vitals) -> Emotions {
         if rand_range(0, 30) >= 28 {
             return Emotions::Frightened;
         }
@@ -87,7 +88,7 @@ impl Emotion {
             Emotions::Busy => state::next_from_busy(),
             Emotions::Cheeky => state::next_from_cheeky(),
             Emotions::Confused => state::next_from_confused(),
-            Emotions::Content => state::next_from_content(),
+            Emotions::Content => state::next_from_content(vitals),
             Emotions::Creative => state::next_from_creative(),
             Emotions::Curious => state::next_from_curious(),
             Emotions::Distant => state::next_from_distant(),
