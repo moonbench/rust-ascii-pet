@@ -7,6 +7,7 @@ use crate::character::emotion::{Emotion, Emotions};
 use crate::character::animation::{Animation};
 use crate::character::vitals::Vitals;
 
+use std::io::{Write, stdout};
 use crate::draw;
 use crossterm::{
     execute,
@@ -20,7 +21,8 @@ pub struct Character {
     pub ears: String,
     pub emotion: Emotion,
     pub animation: Animation,
-    pub vitals: Vitals
+    pub vitals: Vitals,
+    pub wealth: u32,
 }
 
 impl Character  {
@@ -35,7 +37,8 @@ impl Character  {
             ears: "ᑎ___ᑎ".to_string(),
             animation: Animation::make_for(&emotion, &emotion.pick_expression()),
             emotion: emotion,
-            vitals: vitals
+            vitals: vitals,
+            wealth: 100,
         }
     }
 
@@ -44,8 +47,9 @@ impl Character  {
             std::io::stdout(),
             SetForegroundColor(Color::White),
         ).unwrap();
-        self::draw(&format!("{:^40}", &self.ears), (1, 6));
-        self::draw(&format!("{:^40}", &self.animation.frame().0), (1, 7));
+        self::draw(&format!("{:^40}", &self.ears), (1, 7));
+        self::draw(&format!("{:^40}", &self.animation.frame().0), (1, 8));
+        let _ = stdout().flush();
         let delay = self.animation.frame().1;
         self.animation.next();
         delay
@@ -67,6 +71,29 @@ impl Character  {
         self.set_emotion(new_emotion);
     }
 
+    pub fn can_feed(&self) -> bool {
+        if self.wealth < 10 { return false; }
+        if self.emotion.name == Emotions::Eating { return false; }
+        true
+    }
+
+    pub fn feed(&mut self) {
+        self.decrease_wealth(10);
+        self.set_state(Emotions::Eating);
+    }
+
+    fn increase_wealth(&mut self, addition: u32) {
+        self.wealth += addition;
+        if self.wealth > 10000 { self.wealth = 10000; }
+    }
+
+    fn decrease_wealth(&mut self, subtraction: u32) {
+        if self.wealth + subtraction > 0 {
+            self.wealth -= subtraction;
+        }
+    }
+
+
     fn update_vitals(&mut self) {
         match self.emotion.name {
             Emotions::Angry => {
@@ -77,9 +104,12 @@ impl Character  {
             Emotions::Bored => {
                 self.vitals.less_strength();
                 self.vitals.less_engagement();
-                self.vitals.more_relaxation()
+                self.vitals.more_relaxation();
              },
-            Emotions::Busy => self.vitals.less_happiness(),
+            Emotions::Busy => {
+                self.vitals.less_happiness();
+                self.increase_wealth(25);
+            },
             Emotions::Cheeky => {
                 self.vitals.more_brave();
                 self.vitals.less_politeness();
@@ -91,12 +121,18 @@ impl Character  {
             }
             Emotions::Creative => {
                 self.vitals.more_confident();
+                self.increase_wealth(2);
             },
             Emotions::Curious => {
                 self.vitals.more_engagement();
                 self.vitals.less_relaxation();
             }
             Emotions::Distant => self.vitals.less_engagement(),
+            Emotions::Eating => {
+                self.vitals.more_energy();
+                self.vitals.less_hunger();
+                self.vitals.more_happiness();
+            }
             Emotions::Empty => {
                 self.vitals.less_engagement();
                 self.vitals.less_happiness();
@@ -104,11 +140,6 @@ impl Character  {
             Emotions::Excited => {
                 self.vitals.more_happiness();
             },
-            Emotions::Eating => {
-                self.vitals.more_energy();
-                self.vitals.less_hunger();
-                self.vitals.more_happiness();
-            }
             Emotions::Frightened => self.vitals.less_brave(),
             Emotions::Frustrated => {
                 self.vitals.less_relaxation();
@@ -124,9 +155,9 @@ impl Character  {
             },
             Emotions::Playful => {
                 self.vitals.more_strength();
-                self.vitals.less_energy();
                 self.vitals.more_hunger();
                 self.vitals.more_brave();
+                if self.vitals.energy > 5 { self.vitals.less_energy(); }
             },
             Emotions::Sad => {
                 self.vitals.less_happiness();

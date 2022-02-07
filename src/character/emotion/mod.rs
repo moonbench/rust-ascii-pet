@@ -7,6 +7,7 @@ use std::fmt;
 use crate::character::glyphs;
 
 #[derive(Debug, Clone)]
+#[derive(PartialEq)]
 pub enum Emotions {
     Angry,
     Anxious,

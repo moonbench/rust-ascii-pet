@@ -1,7 +1,6 @@
 mod character;
 
 use crate::character::Character;
-use crate::character::emotion::Emotions;
 
 use std::sync::mpsc;
 use std::thread;
@@ -35,28 +34,28 @@ fn set_environment_colors() {
 fn render_frame(pet: &mut Character) -> u64 {
     set_environment_colors();
 
-    for row in 1..=7 {
+    for row in 1..=8 {
         draw(&format!("║{: ^40}║", ""), (0, row));
     }
-    let delay = pet.next_tick();
-
     render_statusbar(pet);
-
-    delay
+    pet.next_tick()
 }
 
 fn render_statusbar(pet: &Character) {
-    let energy = format!("╠ 🗲 {}", pet.vitals.energy);
-    let joy =    format!("╠ ♥ {}", pet.vitals.happiness);
+    let energy = format!("🗲 {}", pet.vitals.energy);
+    let joy =    format!("♥ {}", pet.vitals.happiness);
+    let wealth = format!("{} ¤", pet.wealth);
     execute!(
         std::io::stdout(),
         SetForegroundColor(Color::Blue),
         cursor::MoveTo(2, 1),
         Print(format!("{:>38} ╣", pet.emotion.name.to_string().to_lowercase())),
+        cursor::MoveTo(2, 2),
+        Print(format!("{:>38} ╣", wealth)),
         cursor::MoveTo(0,1),
-        Print(format!("{:<6}", energy)),
+        Print(format!("╠ {:<6}", energy)),
         cursor::MoveTo(0,2),
-        Print(format!("{:<6}", joy)),
+        Print(format!("╠ {:<6}", joy)),
     ).unwrap();
 }
 
@@ -65,11 +64,10 @@ fn render_environment(name: &str) {
 
     // Draw the enclosure
     draw(&format!("╔{:═^40}╗", format!(" {} ", name)), (0,0));
-    draw(&format!("║{:░^40}║", ""), (0,8));
-    draw(&format!("║{:▒^40}║", ""), (0,9));
-    draw(&format!("║{:▓^40}║", ""), (0,10));
-    draw(&format!("╚{:═^40}╝", ""), (0,11));
-    draw(&format!("{:^42}", ""), (0,12));
+    draw(&format!("║{:░^40}║", ""), (0,9));
+    draw(&format!("║{:▒^40}║", ""), (0,10));
+    draw(&format!("║{:▓^40}║", ""), (0,11));
+    draw(&format!("╚{:═^40}╝", ""), (0,12));
     draw(&format!("{:^42}", ""), (0,13));
 }
 
@@ -77,6 +75,7 @@ fn draw_menu() {
     execute!(
         std::io::stdout(),
         cursor::MoveTo(1, 13),
+        SetForegroundColor(Color::White),
         Print("q: Exit   f: Feed"),
     ).unwrap();
 }
@@ -133,11 +132,15 @@ fn main() {
                 Err(_) => {},
                 Ok(message) => {
                     match message {
-                        "feed" => pet.set_state(Emotions::Eating),
+                        "feed" => {
+                            if pet.can_feed() {
+                                pet.feed();
+                                delay_tx.send(pet.animation.duration).unwrap();
+                            }
+                        },
                         "end" => break,
                         _ => {}
                     }
-                    delay_tx.send(pet.animation.duration).unwrap();
                 }
             };
         }

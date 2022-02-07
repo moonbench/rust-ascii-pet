@@ -39,6 +39,7 @@ impl Animation {
         }
     }
     pub fn make_for(emotion: &Emotion, face: &str) -> Animation{
+        return table_flip(face);
         match emotion.name {
             Emotions::Angry => sit(face),
             Emotions::Anxious => sweat(face),
@@ -187,7 +188,7 @@ fn random_tired(face: &str) -> Animation {
 
 fn sit(face: &str) -> Animation {
     Animation::new(&[
-        Frame::new(format!("( {} )", face), rand_range(2000,5000)),
+        Frame::new(format!("( {} )", face), rand_range(2000,4000)),
         Frame::new(format!(" ( {} ) ･", face), 300),
         Frame::new(format!("  ( {} ) ･･", face), 300),
         Frame::new(format!(" ( {} ) ･", face), 300),
@@ -221,7 +222,7 @@ fn vibe(face: &str) -> Animation {
 
 fn look_around(face: &str) -> Animation {
     Animation::new(&[
-        Frame::new(format!("( {} )", face), rand_range(3000,10000)),
+        Frame::new(format!("( {} )", face), rand_range(3000,7000)),
         Frame::new(format!("(  {})", face), rand_range(250,1000)),
         Frame::new(format!("( {} )", face), rand_range(250,1000)),
         Frame::new(format!("({}  )", face), rand_range(250,1000)),
@@ -234,7 +235,7 @@ fn look_around(face: &str) -> Animation {
 
 fn float_sparkle(face: &str) -> Animation {
     Animation::new(&[
-        Frame::new(format!("( {} )", face), rand_range(2000,8000)),
+        Frame::new(format!("( {} )", face), rand_range(2000,7000)),
         Frame::new(format!("☆( {} )☆", face), 350),
         Frame::new(format!("*( {} )*", face), 400),
         Frame::new(format!("'( {} )'", face), 500),
@@ -243,7 +244,7 @@ fn float_sparkle(face: &str) -> Animation {
 
 fn sparkle(face: &str) -> Animation {
     Animation::new(&[
-        Frame::new(format!("( {} )", face),  rand_range(2000,10000)),
+        Frame::new(format!("( {} )", face),  rand_range(2000,7000)),
         Frame::new(format!("¤( {} )¤", face), 200),
         Frame::new(format!("⊹( {} )⊹", face), 250),
     ], rand_range(2,8))
@@ -251,10 +252,10 @@ fn sparkle(face: &str) -> Animation {
 
 fn shimmer(face: &str) -> Animation {
     Animation::new(&[
-        Frame::new(format!("( {} )", face),  rand_range(5000,10000)),
+        Frame::new(format!("( {} )", face),  rand_range(5000,7000)),
         Frame::new(format!("  ( {} ) ¤", face), 200),
         Frame::new(format!("  ( {} ) ⊹", face), 250),
-        Frame::new(format!("( {} )", face),  rand_range(2000,10000)),
+        Frame::new(format!("( {} )", face),  rand_range(2000,7000)),
         Frame::new(format!("¤ ( {} )  ", face), 200),
         Frame::new(format!("⊹ ( {} )  ", face), 250),
     ], rand_range(2,8))
@@ -307,9 +308,16 @@ fn magic(_face: &str) -> Animation {
 
 fn give_love(face: &str) -> Animation {
     Animation::new(&[
-        Frame::new(format!(" ( {} ) ", face), rand_range(500,5000)),
-        Frame::new(format!(" (  {}) ", face), rand_range(1000,3000)),
-        Frame::new(format!(" (  {})♥", face), 1000),
+        Frame::new(format!(" ( {} ) ", face), rand_range(1000,4000)),
+        Frame::new(format!("♥({}  ) ", face), 500),
+        Frame::new(format!("( {} )", face), 500),
+        Frame::new(format!(" (  {})♥", face), 500),
+        Frame::new(format!("( {} )", face), rand_range(1000,3000)),
+        Frame::new(format!("♥( {} )♥", face), 250),
+        Frame::new(format!("♥~( {} )~♥", face), 250),
+        Frame::new(format!("♥~-( {} )-~♥", face), 250),
+        Frame::new(format!("♥-  ( {} )  -♥", face), 250),
+        Frame::new(format!("⁛   ( {} )   ⁛", face), 250),
     ], rand_range(1,4))
 }
 
@@ -351,7 +359,7 @@ fn sleep(face: &str) -> Animation {
 
 fn tired(face: &str) -> Animation {
     Animation::new(&[
-        Frame::new(format!("( {} )", face),  rand_range(1000,6000)),
+        Frame::new(format!("( {} )", face),  rand_range(1000,5000)),
         Frame::new(format!("✧( {} ) ", face), 350),
         Frame::new(format!("⁘( {} ) ", face), 350),
         Frame::new(format!("⁛( {} ) ", face), 350),
@@ -393,10 +401,10 @@ fn inspect(face: &str) -> Animation {
 
 fn observe(face: &str) -> Animation {
     Animation::new(&[
-        Frame::new(format!("    (  {})  ╭▀╮", face), rand_range(3000,9000)),
+        Frame::new(format!("    (  {})  ╭▀╮", face), rand_range(3000,7000)),
         Frame::new(format!("     (  {}) °╭─╮°", face), 200),
         Frame::new(format!("      (  {})° ╭─╮ °", face), 200),
-        Frame::new(format!("    (  {})  ╭─╮", face), rand_range(2000,5000)),
+        Frame::new(format!("    (  {})  ╭─╮", face), rand_range(2000,4000)),
         Frame::new(format!("      (  {})° ╭─╮ °", face), 200),
         Frame::new(format!("     (  {}) °╭─╮°", face), 200),
     ], rand_range(3,7))
@@ -480,13 +488,13 @@ fn table_flip(face: &str) -> Animation {
         Frame::new(format!("    (  `Д´)ﾉ┬──┬"), 250),
         Frame::new(format!("      (  `Д´)ﾉ  ┴──┴"), 250),
         Frame::new(format!("       (  `Д´)    ┴──┴"), 300),
-        Frame::new(format!("         (  {})     ┬──┬", face), rand_range(1000,6000)),
+        Frame::new(format!("        (  {})     ┬──┬", face), rand_range(1000,6000)),
     ], rand_range(1,2))
 }
 
 fn make(face: &str) -> Animation {
     Animation::new(&[
-        Frame::new(format!("┬+┬ ({}  )    ", face), rand_range(3000,10000)),
+        Frame::new(format!("┬+┬ ({}  )    ", face), rand_range(3000,5000)),
         Frame::new(format!("┬+┬⊂({}  )    ", face), rand_range(300,3000)),
         Frame::new(format!("┬×┬⊂({}  )    ", face), 350),
         Frame::new(format!("┬+┬⊂({}  )    ", face), 350),
@@ -514,6 +522,7 @@ fn zombie(_face: &str) -> Animation {
 fn loaf(face: &str) -> Animation {
     Animation::new(&[
         Frame::new(format!("/ {} \\", face), rand_range(1000,6000)),
+        Frame::new(format!("( {} )", face), rand_range(700,1500)),
     ], rand_range(4,9))
 }
 
@@ -537,14 +546,20 @@ fn eat(face: &str) -> Animation {
         Frame::new(format!(" (  ˘□˘)▄"), 250),
         Frame::new(format!("(   ˘▄)"), 250),
         Frame::new(format!("(  ˘ω˘)"), 500),
+        Frame::new(format!("(  ˘3˘)"), 250),
+        Frame::new(format!("✧(  ˘3˘)✧"), 250),
+        Frame::new(format!("⁘ (  ˘ω˘) ⁘"), 250),
+        Frame::new(format!("⁛  (  ˘ω˘)  ⁛"), 250),
         Frame::new(format!("(  ˘3˘)"), 500),
         Frame::new(format!("(  ˘ω˘)"), 500),
         Frame::new(format!("(  ˘3˘)"), 500),
-        Frame::new(format!("¤(  ˘ω˘)¤"), 500),
-        Frame::new(format!("⊹(  ˘3˘)⊹"), 500),
         Frame::new(format!("(  ˘ω˘)"), 500),
-        Frame::new(format!("(  ˘3˘)"), 500),
-        Frame::new(format!("(  ˘ڡ˘)"), rand_range(1000,8000)),
+        Frame::new(format!("(  ˘3˘)"), 250),
+        Frame::new(format!("✧(  ˘3˘)✧"), 250),
+        Frame::new(format!("⁘ (  ˘ڡ˘) ⁘"), 250),
+        Frame::new(format!("⁛  (  ˘ڡ˘)  ⁛"), 250),
+        Frame::new(format!("(  ˘ڡ˘)"), rand_range(500,2500)),
+        Frame::new(format!("(  ˘‿˘)"), rand_range(500,1100)),
     ], 1)
 }
 
